@@ -8,7 +8,70 @@
   <script type="text/javascript" src="scripts.js"></script>
 </head>
 <body class="eggshell">
-  <aside></aside>
+  <aside>
+    <div class="controls-container">
+      <input type="button" class="btn" value="Generate New Palette">
+    </div>
+    <form class="controls-container">
+      <h3 class="mb-1">Create A New Project</h3>
+      <p class="hidden">project name</p>
+      <input type="text" class="txt mb-1">
+      <input type="submit" class="btn" value="Create Project">
+    </form>
+    <div class="controls-container">
+      <h3 class="mb-1">Projects</h3>
+      <ul class="projects">
+        <li>Project 1
+          <ul class="palettes">
+            <li>Sunset
+              <div class="palette-display">
+                <div class="redo palette-color"></div>
+                <div class="yellowo palette-color"></div>
+                <div class="orangeo palette-color"></div>
+                <div class="blueo palette-color"></div>
+                <div class="grayo palette-color"></div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li>Better Project
+          <ul class="palettes">
+            <li>Blue Grade
+              <div class="palette-display">
+                <div class="redo palette-color"></div>
+                <div class="yellowo palette-color"></div>
+                <div class="orangeo palette-color"></div>
+                <div class="blueo palette-color"></div>
+                <div class="grayo palette-color"></div>
+              </div>
+            </li>
+            <li>Fire
+              <div class="palette-display">
+                <div class="redo palette-color"></div>
+                <div class="yellowo palette-color"></div>
+                <div class="orangeo palette-color"></div>
+                <div class="blueo palette-color"></div>
+                <div class="grayo palette-color"></div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li>Project the Third</li>
+      </ul>
+    </div>
+    <form class="controls-container">
+      <h3 class="mb-1">Save Palette To Project</h3>
+      <label for="project-select" class="hidden">choose a project</label>
+      <select id="project-select" class="mb-1">
+        <option value="project1">Project 1</option>
+        <option value="betterproject">Better Project</option>
+        <option value="projectthethird">Project the Third</option>
+      </select>
+      <p class="hidden">palette name</p>
+      <input type="text" class="txt mb-1">
+      <input type="submit" class="btn" value="Save Palette">
+    </form>
+  </aside>
   <main>
     <div class="site-logo">
       <h1 class="Seymour palette">PALETTE
@@ -21,18 +84,23 @@
     </div>
     <section class="colors">
       <article class="first-color white">
+        <img src="assets/padlock-unlock.svg">
         <h2>#FFFAEA</h2>
       </article>
       <article class="second-color black">
+        <img src="assets/padlock-unlock.svg">
         <h2>#0A140F</h2>
       </article>
       <article class="third-color red">
+        <img src="assets/padlock-unlock.svg">
         <h2>#DA1F17</h2>
       </article>
       <article class="fourth-color blue">
+        <img src="assets/padlock-unlock.svg">
         <h2>#0A478C</h2>
       </article>
       <article class="fifth-color yellow">
+        <img src="assets/padlock-unlock.svg">
         <h2>#EAD65B</h2>
       </article>
     </section>

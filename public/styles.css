@@ -3,7 +3,9 @@
 }
 
 body {
+  display: grid;
   font-family: 'Chakra Petch', sans-serif;
+  grid-template-columns: 1fr 4fr;
   margin: 0;
 }
 
@@ -12,6 +14,7 @@ main {
   grid-template-rows: auto 1fr 10rem;
   grid-row-gap: 2rem;
   height: 100vh;
+  min-width: 950px;
   padding-bottom: 2rem;
 }
 
@@ -22,9 +25,10 @@ section {
 }
 
 article {
-  align-items: flex-end;
+  align-items: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-end;
   width: 10rem;
 }
 
@@ -32,6 +36,14 @@ article {
   height: 5rem;
   margin: 2.5rem;
   width: 5rem;
+}
+
+img {
+  background-color: #f5ebf0;
+  border: .2rem solid #f5ebf0;
+  border-radius: 1rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 h2 {
@@ -73,14 +85,6 @@ h2 {
   grid-template: 20px 20px auto 20px 20px / 1fr 10rem 18rem 4rem 5rem 6rem 1fr;
 }
 
-.colors {
-  grid-row: 2/3;
-}
-
-.contrast {
-  grid-row: 3/4;
-}
-
 .Seymour {
   font-family: 'Seymour One', sans-serif;
 }
@@ -91,7 +95,7 @@ h2 {
   grid-column: 1/8;
   grid-row: 1/6;
   text-align: center;
-  z-index: 10;
+  z-index: 3;
 }
 
 .Chango {
@@ -101,6 +105,14 @@ h2 {
 .picker {
   color: #ead65b;
   font-size: 3rem;
+}
+
+.colors {
+  grid-row: 2/3;
+}
+
+.contrast {
+  grid-row: 3/4;
 }
 
 .large-red-block {
@@ -146,4 +158,92 @@ h2 {
 
 .contrast .fifth-color {
   box-shadow: 2.5rem 2.5rem #e1e1e1, -2.5rem 2.5rem #0a140f, -2.5rem -2.5rem #da1f17, 2.5rem -2.5rem #0a478c;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-around;
+  padding: 2rem 0 2rem 2rem;
+}
+
+.controls-container {
+  background-color: #e1e1e1;
+  padding: 1rem;
+}
+
+p {
+  margin: 0;
+}
+
+input {
+  border: none;
+  display: block;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.25rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.txt {
+  padding-left: .5rem;
+}
+
+.btn {
+  border-radius: .5rem;
+  transition: all .2s ease-in-out;
+}
+
+.btn:hover,
+img:hover {
+  box-shadow: .1rem .1rem .3rem #0a140f;
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+select {
+  font-size: 1.2rem;
+  font-family: 'Chakra Petch', sans-serif;
+  width: 100%;
+}
+
+h3 {
+  border-bottom: .1rem solid #0a140f;
+  margin: 0;
+  text-align: center;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.projects {
+  overflow: scroll;
+  padding: 0;
+}
+
+.palettes {
+  padding-left: 1rem;
+}
+
+li {
+  font-weight: bold;
+  list-style: none;
+}
+
+.palettes li {
+  display: flex;
+  font-weight: normal;
+  justify-content: space-between;
+}
+
+.palette-display {
+  align-items: center;
+  display: flex;
+}
+
+.palette-color {
+  height: 1rem;
+  width: 1rem;
 }
