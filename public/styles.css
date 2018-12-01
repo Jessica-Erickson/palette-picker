@@ -247,3 +247,25 @@ li {
   height: 1rem;
   width: 1rem;
 }
+
+/*delete these after styling*/
+.redo {
+  background-color: red;
+}
+
+.yellowo {
+  background-color: yellow;
+}
+
+.orangeo {
+  background-color: orange;
+}
+
+.blueo {
+  background-color: blue;
+}
+
+.grayo {
+  background-color: gray;
+}
+/*delete these after styling*/
