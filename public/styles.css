@@ -33,9 +33,19 @@ article {
 }
 
 .contrast article {
+  display: grid;
+  grid-template: 5rem 5rem / 5rem 5rem;
+  position: relative;
+}
+
+article div {
   height: 5rem;
-  margin: 2.5rem;
   width: 5rem;
+}
+
+.contrast-color {
+  justify-self: center;
+  position: absolute;
 }
 
 img {
@@ -138,26 +148,6 @@ h2 {
   grid-row: 1/2;
   justify-self: end;
   width: 50%;
-}
-
-.contrast .white {
-  box-shadow: 2.5rem 2.5rem #0a140f, -2.5rem 2.5rem #da1f17, -2.5rem -2.5rem #0a478c, 2.5rem -2.5rem #ead65b;
-}
-
-.contrast .black {
-  box-shadow: 2.5rem 2.5rem #da1f17, -2.5rem 2.5rem #0a478c, -2.5rem -2.5rem #ead65b, 2.5rem -2.5rem #e1e1e1;
-}
-
-.contrast .red {
-  box-shadow: 2.5rem 2.5rem #0a478c, -2.5rem 2.5rem #ead65b, -2.5rem -2.5rem #e1e1e1, 2.5rem -2.5rem #0a140f;
-}
-
-.contrast .blue {
-  box-shadow: 2.5rem 2.5rem #ead65b, -2.5rem 2.5rem #e1e1e1, -2.5rem -2.5rem #0a140f, 2.5rem -2.5rem #da1f17;
-}
-
-.contrast .yellow {
-  box-shadow: 2.5rem 2.5rem #e1e1e1, -2.5rem 2.5rem #0a140f, -2.5rem -2.5rem #da1f17, 2.5rem -2.5rem #0a478c;
 }
 
 aside {
