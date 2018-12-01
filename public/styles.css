@@ -56,27 +56,27 @@ h2 {
 
 .white {
   background-color: #e1e1e1;
-  color: #1e1e1e;
+  color: #0a140f;
 }
 
 .black {
   background-color: #0a140f;
-  color: #f5ebf0;
+  color: #e1e1e1;
 }
 
 .red {
   background-color: #da1f17;
-  color: #25e0e8;
+  color: #e1e1e1;
 }
 
 .blue {
   background-color: #0a478c;
-  color: #f5b873;
+  color: #e1e1e1;
 }
 
 .yellow {
   background-color: #ead65b;
-  color: #1529a4;
+  color: #0a140f;
 }
 
 .site-logo {
@@ -140,23 +140,23 @@ h2 {
   width: 50%;
 }
 
-.contrast .first-color {
+.contrast .white {
   box-shadow: 2.5rem 2.5rem #0a140f, -2.5rem 2.5rem #da1f17, -2.5rem -2.5rem #0a478c, 2.5rem -2.5rem #ead65b;
 }
 
-.contrast .second-color {
+.contrast .black {
   box-shadow: 2.5rem 2.5rem #da1f17, -2.5rem 2.5rem #0a478c, -2.5rem -2.5rem #ead65b, 2.5rem -2.5rem #e1e1e1;
 }
 
-.contrast .third-color {
+.contrast .red {
   box-shadow: 2.5rem 2.5rem #0a478c, -2.5rem 2.5rem #ead65b, -2.5rem -2.5rem #e1e1e1, 2.5rem -2.5rem #0a140f;
 }
 
-.contrast .fourth-color {
+.contrast .blue {
   box-shadow: 2.5rem 2.5rem #ead65b, -2.5rem 2.5rem #e1e1e1, -2.5rem -2.5rem #0a140f, 2.5rem -2.5rem #da1f17;
 }
 
-.contrast .fifth-color {
+.contrast .yellow {
   box-shadow: 2.5rem 2.5rem #e1e1e1, -2.5rem 2.5rem #0a140f, -2.5rem -2.5rem #da1f17, 2.5rem -2.5rem #0a478c;
 }
 
