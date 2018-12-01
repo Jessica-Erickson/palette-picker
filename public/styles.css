@@ -57,6 +57,10 @@ img {
 }
 
 h2 {
+  background-color: #f5ebf0;
+  border-radius: 1rem;
+  color: #0a140f;
+  padding: .2rem .5rem;
   text-align: center;
 }
 
@@ -66,27 +70,22 @@ h2 {
 
 .white {
   background-color: #e1e1e1;
-  color: #0a140f;
 }
 
 .black {
   background-color: #0a140f;
-  color: #e1e1e1;
 }
 
 .red {
   background-color: #da1f17;
-  color: #e1e1e1;
 }
 
 .blue {
   background-color: #0a478c;
-  color: #e1e1e1;
 }
 
 .yellow {
   background-color: #ead65b;
-  color: #0a140f;
 }
 
 .site-logo {
