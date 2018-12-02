@@ -9,18 +9,19 @@
 <body class="eggshell">
   <aside>
     <div class="controls-container">
-      <input type="button" class="btn gnp" value="Generate New Palette">
+      <input type="button" class="btn new-palette" value="Generate New Palette">
     </div>
     <form class="controls-container">
       <h3 class="mb-1">Create A New Project</h3>
-      <p class="hidden">project name</p>
-      <input type="text" class="txt mb-1">
-      <input type="submit" class="btn" value="Create Project">
+      <p>project name</p>
+      <input type="text" class="txt mb-1" id="new-project-name">
+      <input type="submit" class="btn create-project" value="Create Project">
     </form>
     <div class="controls-container">
       <h3 class="mb-1">Projects</h3>
-      <ul class="projects">
-        <li>Project 1
+      <p class="warning">You don't have any projects. Please create at least one to start saving palettes.</p>
+      <ul class="projects" data-projects="">
+        <!-- <li>Project 1
           <ul class="palettes">
             <li>Sunset
               <div class="palette-display">
@@ -55,20 +56,20 @@
             </li>
           </ul>
         </li>
-        <li>Project the Third</li>
+        <li>Project the Third</li> -->
       </ul>
     </div>
-    <form class="controls-container">
+    <form class="controls-container palette-form">
       <h3 class="mb-1">Save Palette To Project</h3>
-      <label for="project-select" class="hidden">choose a project</label>
+      <label for="project-select">choose a project</label>
       <select id="project-select" class="mb-1">
-        <option value="project1">Project 1</option>
+<!--    <option value="project1">Project 1</option>
         <option value="betterproject">Better Project</option>
-        <option value="projectthethird">Project the Third</option>
+        <option value="projectthethird">Project the Third</option> -->
       </select>
-      <p class="hidden">palette name</p>
+      <p>palette name</p>
       <input type="text" class="txt mb-1">
-      <input type="submit" class="btn sp" value="Save Palette">
+      <input type="submit" class="btn save-palette" value="Save Palette">
     </form>
   </aside>
   <main>

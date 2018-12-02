@@ -2,7 +2,7 @@ const repopulatePalette = () => {
   const colors = [];
 
   while (colors.length < 5) {
-    colors.push('#' + Math.floor(Math.random() * 16777216).toString(16))
+    colors.push('#' + Math.floor(Math.random() * 16777216).toString(16));
   }
 
   colors.forEach((color, index) => {
@@ -26,6 +26,29 @@ const toggleLock = (event) => {
   }
 }
 
+const createProject = (event) => {
+  event.preventDefault();
+  const projectName = document.querySelector('#new-project-name').value;
+  const projectsList = document.querySelector('.projects');
+  const existingProjects = projectsList.getAttribute('data-projects').split(', ');
+  const isUnique = !existingProjects.includes(projectName);
+
+  if (projectName !== '' && isUnique) {
+    const newList = [...existingProjects, projectName].join(', ');
+    const newProjectElement = document.createElement('li');
+
+    newProjectElement.innerHTML = `${projectName}
+                                    <ul class="palettes">
+                                    </ul>`
+
+    projectsList.setAttribute('data-projects', newList);
+    projectsList.appendChild(newProjectElement);
+
+    document.querySelector('.warning').style.display = 'none';
+    document.querySelector('.palette-form').style.display = 'block';
+  }
+}
+
 const savePalette = (event) => {
   event.preventDefault();
   const colors = [];
@@ -34,8 +57,9 @@ const savePalette = (event) => {
   }
 }
 
-document.querySelector('.gnp').addEventListener('click', repopulatePalette);
+document.querySelector('.new-palette').addEventListener('click', repopulatePalette);
 document.querySelectorAll('img').forEach(img => {
   img.addEventListener('click', toggleLock);
 });
-document.querySelector('.sp').addEventListener('click', savePalette)
+document.querySelector('.create-project').addEventListener('click', createProject)
+document.querySelector('.save-palette').addEventListener('click', savePalette)

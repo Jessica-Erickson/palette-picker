@@ -209,6 +209,7 @@ h3 {
 
 .projects {
   overflow: scroll;
+  margin-bottom: 0;
   padding: 0;
 }
 
@@ -237,24 +238,6 @@ li {
   width: 1rem;
 }
 
-/*delete these after styling*/
-.redo {
-  background-color: red;
+.palette-form {
+  display: none;
 }
-
-.yellowo {
-  background-color: yellow;
-}
-
-.orangeo {
-  background-color: orange;
-}
-
-.blueo {
-  background-color: blue;
-}
-
-.grayo {
-  background-color: gray;
-}
-/*delete these after styling*/
