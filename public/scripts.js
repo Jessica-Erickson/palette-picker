@@ -15,4 +15,16 @@ const repopulatePalette = () => {
   });
 }
 
+const toggleLock = (event) => {
+  const lock = event.target.getAttribute('src');
+  if (lock === 'assets/padlock-unlock.svg') {
+    event.target.setAttribute('src', 'assets/padlock.svg')
+  } else {
+    event.target.setAttribute('src', 'assets/padlock-unlock.svg')
+  }
+}
+
 document.querySelector('.gnp').addEventListener('click', repopulatePalette);
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('click', toggleLock);
+});
