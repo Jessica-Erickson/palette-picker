@@ -26,7 +26,16 @@ const toggleLock = (event) => {
   }
 }
 
+const savePalette = (event) => {
+  event.preventDefault();
+  const colors = [];
+  for (let i = 0; i < 5; i++) {
+    colors.push(document.querySelector('.color-' + i).querySelector('h2').innerText);
+  }
+}
+
 document.querySelector('.gnp').addEventListener('click', repopulatePalette);
 document.querySelectorAll('img').forEach(img => {
   img.addEventListener('click', toggleLock);
 });
+document.querySelector('.sp').addEventListener('click', savePalette)
