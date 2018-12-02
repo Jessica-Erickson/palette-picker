@@ -6,11 +6,13 @@ const repopulatePalette = () => {
   }
 
   colors.forEach((color, index) => {
-    const lock = document.querySelector('.color-' + index).querySelector('img').getAttribute('src');
+    const paletteColor = document.querySelector('.color-' + index);
+    const lock = paletteColor.querySelector('img').getAttribute('src');
     if (lock === 'assets/padlock-unlock.svg') {
       document.querySelectorAll('.color-' + index).forEach(item => {
         item.style.backgroundColor = colors[index];
       });
+      paletteColor.querySelector('h2').innerText = colors[index].toUpperCase();
     }
   });
 }
