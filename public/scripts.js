@@ -6,9 +6,10 @@ const repopulatePalette = () => {
   }
 
   colors.forEach((color, index) => {
-    if (color is not locked) {
+    const lock = document.querySelector('.color-' + index).querySelector('img').getAttribute('src');
+    if (lock === 'assets/padlock-unlock.svg') {
       document.querySelectorAll('.color-' + index).forEach(item => {
-        item.style.backgroundColor = colors[0];
+        item.style.backgroundColor = colors[index];
       });
     }
   });
