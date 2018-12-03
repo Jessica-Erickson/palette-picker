@@ -5,71 +5,30 @@
   <link rel="icon" type="image/png" href="assets/paintbrush-and-palette.png">
   <link href="https://fonts.googleapis.com/css?family=Chakra+Petch:500,600|Chango|Seymour+One" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styles.css">
-  <script type="text/javascript" src="scripts.js"></script>
 </head>
 <body class="eggshell">
   <aside>
     <div class="controls-container">
-      <input type="button" class="btn" value="Generate New Palette">
+      <input type="button" class="btn new-palette" value="Generate New Palette">
     </div>
     <form class="controls-container">
       <h3 class="mb-1">Create A New Project</h3>
-      <p class="hidden">project name</p>
-      <input type="text" class="txt mb-1">
-      <input type="submit" class="btn" value="Create Project">
+      <p>project name</p>
+      <input type="text" class="txt mb-1" id="new-project-name">
+      <input type="submit" class="btn create-project" value="Create Project">
     </form>
     <div class="controls-container">
       <h3 class="mb-1">Projects</h3>
-      <ul class="projects">
-        <li>Project 1
-          <ul class="palettes">
-            <li>Sunset
-              <div class="palette-display">
-                <div class="redo palette-color"></div>
-                <div class="yellowo palette-color"></div>
-                <div class="orangeo palette-color"></div>
-                <div class="blueo palette-color"></div>
-                <div class="grayo palette-color"></div>
-              </div>
-            </li>
-          </ul>
-        </li>
-        <li>Better Project
-          <ul class="palettes">
-            <li>Blue Grade
-              <div class="palette-display">
-                <div class="redo palette-color"></div>
-                <div class="yellowo palette-color"></div>
-                <div class="orangeo palette-color"></div>
-                <div class="blueo palette-color"></div>
-                <div class="grayo palette-color"></div>
-              </div>
-            </li>
-            <li>Fire
-              <div class="palette-display">
-                <div class="redo palette-color"></div>
-                <div class="yellowo palette-color"></div>
-                <div class="orangeo palette-color"></div>
-                <div class="blueo palette-color"></div>
-                <div class="grayo palette-color"></div>
-              </div>
-            </li>
-          </ul>
-        </li>
-        <li>Project the Third</li>
-      </ul>
+      <p class="warning">You don't have any projects. Please create at least one to start saving palettes.</p>
+      <ul class="projects" data-projects=""></ul>
     </div>
-    <form class="controls-container">
+    <form class="controls-container palette-form">
       <h3 class="mb-1">Save Palette To Project</h3>
-      <label for="project-select" class="hidden">choose a project</label>
-      <select id="project-select" class="mb-1">
-        <option value="project1">Project 1</option>
-        <option value="betterproject">Better Project</option>
-        <option value="projectthethird">Project the Third</option>
-      </select>
-      <p class="hidden">palette name</p>
-      <input type="text" class="txt mb-1">
-      <input type="submit" class="btn" value="Save Palette">
+      <label for="project-select">choose a project</label>
+      <select id="project-select" class="mb-1"></select>
+      <p>palette name</p>
+      <input id="palette-name" type="text" class="txt mb-1">
+      <input type="submit" class="btn save-palette" value="Save Palette">
     </form>
   </aside>
   <main>
@@ -83,34 +42,65 @@
       <div class="small-yellow-block yellow"></div>
     </div>
     <section class="colors">
-      <article class="first-color white">
+      <article class="color-0 white">
         <img src="assets/padlock-unlock.svg">
-        <h2>#FFFAEA</h2>
+        <h2>#E1E1E1</h2>
       </article>
-      <article class="second-color black">
+      <article class="color-1 black">
         <img src="assets/padlock-unlock.svg">
         <h2>#0A140F</h2>
       </article>
-      <article class="third-color red">
+      <article class="color-2 red">
         <img src="assets/padlock-unlock.svg">
         <h2>#DA1F17</h2>
       </article>
-      <article class="fourth-color blue">
+      <article class="color-3 blue">
         <img src="assets/padlock-unlock.svg">
         <h2>#0A478C</h2>
       </article>
-      <article class="fifth-color yellow">
+      <article class="color-4 yellow">
         <img src="assets/padlock-unlock.svg">
         <h2>#EAD65B</h2>
       </article>
     </section>
     <section class="contrast">
-      <article class="first-color white"></article>
-      <article class="second-color black"></article>
-      <article class="third-color red"></article>
-      <article class="fourth-color blue"></article>
-      <article class="fifth-color yellow"></article>
+      <article>
+        <div class="color-0 contrast-color white"></div>
+        <div class="color-1 black"></div>
+        <div class="color-2 red"></div>
+        <div class="color-3 blue"></div>
+        <div class="color-4 yellow"></div>
+      </article>
+      <article>
+        <div class="color-1 contrast-color black"></div>
+        <div class="color-2 red"></div>
+        <div class="color-3 blue"></div>
+        <div class="color-4 yellow"></div>
+        <div class="color-0 white"></div>
+      </article>
+      <article>
+        <div class="color-2 contrast-color red"></div>
+        <div class="color-3 blue"></div>
+        <div class="color-4 yellow"></div>
+        <div class="color-0 white"></div>
+        <div class="color-1 black"></div>
+      </article>
+      <article>
+        <div class="color-3 contrast-color blue"></div>
+        <div class="color-4 yellow"></div>
+        <div class="color-0 white"></div>
+        <div class="color-1 black"></div>
+        <div class="color-2 red"></div>
+      </article>
+      <article>
+        <div class="color-4 contrast-color yellow"></div>
+        <div class="color-0 white"></div>
+        <div class="color-1 black"></div>
+        <div class="color-2 red"></div>
+        <div class="color-3 blue"></div>
+      </article>
     </section>
   </main>
+  <script type="text/javascript" src="scripts.js"></script>
 </body>
 </html>
