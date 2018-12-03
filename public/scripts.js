@@ -36,13 +36,17 @@ const createProject = (event) => {
   if (projectName !== '' && isUnique) {
     const newList = [...existingProjects, projectName].join(', ');
     const newProjectElement = document.createElement('li');
+    const projectSelect = document.querySelector('#project-select');
+    const newSelectElement = document.createElement('option');
 
-    newProjectElement.innerHTML = `${projectName}
-                                    <ul class="palettes">
-                                    </ul>`
+    newProjectElement.innerHTML = `${projectName}<ul class="palettes"></ul>`;
+    newProjectElement.id = projectName;
+    newSelectElement.value = `${projectName}`;
+    newSelectElement.innerText = projectName;
 
     projectsList.setAttribute('data-projects', newList);
     projectsList.appendChild(newProjectElement);
+    projectSelect.appendChild(newSelectElement);
 
     document.querySelector('.warning').style.display = 'none';
     document.querySelector('.palette-form').style.display = 'block';
