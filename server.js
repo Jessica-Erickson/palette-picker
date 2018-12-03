@@ -62,7 +62,7 @@ app.get('/api/v1/projects/:id', (request, response) => {
       } else {
         response
           .status(404)
-          .send({ error: 'Project not found'});
+          .send({ error: `Project with the id ${id} does not exist.`});
       }
     })
     .catch(error => {
@@ -88,32 +88,42 @@ app.get('/api/v1/projects/:id', (request, response) => {
     .json(project);
 });
 
-app.post('/api/v1/projects/:id/palettes', (request, response) => {
-  const { id } = request.params;
-  const { palette } = request.body;
+app.post('/api/v1/palettes', (request, response) => {
+  const palette = request.body;
 
-  // check to see if the project exists;
-  // create a new palette in the palettes table;
+  database('projects').where('id', palette.project_id).select()
+    .then(projects => {
+      if (!projects.length) {
+        response
+          .status(404)
+          .send({ error: `Project with the id ${palette.project_id} does not exist.`});
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
 
-  if (!project) {
-    return response
-      .status(500)
-      .send({ error: `Project with the id ${id} does not exist.`} );
-  }
-
-  for (let requiredParameter of ['name', 'values']) {
+  for (let requiredParameter of ['name', 'values', 'project_id']) {
     if (!palette[requiredParameter]) {
       return response
         .status(422)
-        .send({ error: `Expected format: { name: <String>, values: <Array> }. You're missing a "${requiredParameter}" property.` });
+        .send({ error: `Expected format: { name: <String>, values: <Array>, project_id: <Integer> }. You're missing a "${requiredParameter}" property.` });
     }
   }
 
-  return response
-    .status(201)
-    .json({status: 'success', palette_name: palette.name, palette_values: palette.values, palette_id: palette_id});
-  // return new palette posted, palette id
-  // {status: "success", project_id: 2, palette_id: 1}
+  if (palette.values.length !== 5 && typeof palette.values[0] !== 'string') {
+    return response
+      .status(422)
+      .send({ error: 'Palette must have 5 values and each value must be a string.'})
+  }
+
+  database('palettes').insert(palette, 'id')
+    .then(paletteData => {
+      response.status(201).json({status: 'success', palette_name: palette.name, palette_values: palette.values, palette_id: palette[0], project_id: palette.project_id});
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
 });
 
 app.delete('/api/v1/projects/:project_id/palettes/:palette_id', (request, response) => {
