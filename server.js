@@ -34,20 +34,21 @@ app.get('/api/v1/projects', (request, response) => {
 });
 
 app.post('/api/v1/projects', (request, response) => {
-  const { project } = request.body.name;
-  // create a new project in the projects table
-  // return new project posted, project id
-  // {status: "success", project_id: 1}
+  const project = request.body;
 
-  if (!project) {
+  if (!project.name) {
     return response
       .status(500)
       .send({ error: 'Project name is required, but was not provided. Please format request body to be { body: {"name": "your project name"}}'});
   }
 
-  return response
-    .status(201)
-    .json({status: 'success', project_name: project, project_id: id});
+  database('projects').insert(project, 'id')
+    .then(projectData => {
+      response.status(201).json({ status: 'success', project_name: project.name, project_id: projectData[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
 });
 
 app.get('/api/v1/projects/:id', (request, response) => {
