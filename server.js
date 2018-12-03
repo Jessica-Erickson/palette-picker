@@ -12,8 +12,15 @@ app.use(express.static('public'));
 app.set('port', process.env.PORT || 3000);
 
 app.get('/api/v1/projects', (request, response) => {
-  // get projects from table
-  // return [{project 1: id1}, {project 2: id2}, {project 3: id3}]
+  let projects = [];
+
+  database('projects').select()
+    .then(projectsData => {
+      projects = projectsData;
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
 
   if (!projects.length) {
     return response
@@ -45,21 +52,39 @@ app.post('/api/v1/projects', (request, response) => {
 
 app.get('/api/v1/projects/:id', (request, response) => {
   const { id } = request.params;
+  let project = {};
 
-  // get project from table;
-  // get palettes from other table;
+  database('projects').where('id', id).select()
+    .then(projects => {
+      if (projects.length) {
+        project = projects[0];
+      } else {
+        response
+          .status(404)
+          .send({ error: 'Project not found'});
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
 
-  if (!project) {
-    return response
-      .status(404)
-      .send({ error: 'Project not found'});
-  }
+  let palettes = [];
+
+  database('palettes').select()
+    .then(palettesData => {
+      palettes = palettesData.filter(palette => {
+        return palette.project_id === id;
+      });
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+
+  project.palettes = palettes;
 
   return response
     .status(200)
     .json(project);
-
-  // return {project 1: palettes: [{palette1: {id: id, values: []}}, {palette2: {id: id, values: []}}, {palette3: {id: id, values: []}}]}
 });
 
 app.post('/api/v1/projects/:id/palettes', (request, response) => {
