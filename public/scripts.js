@@ -39,8 +39,8 @@ const createProject = (event) => {
     const projectSelect = document.querySelector('#project-select');
     const newSelectElement = document.createElement('option');
 
-    newProjectElement.innerHTML = `${projectName}<ul class="palettes"></ul>`;
-    newProjectElement.id = projectName;
+    newProjectElement.innerHTML = `${projectName}<ul class="palettes" data-palettes=""></ul>`;
+    newProjectElement.setAttribute('name', projectName);
     newSelectElement.value = `${projectName}`;
     newSelectElement.innerText = projectName;
 
@@ -50,15 +50,57 @@ const createProject = (event) => {
 
     document.querySelector('.warning').style.display = 'none';
     document.querySelector('.palette-form').style.display = 'block';
+  } else {
+    alert('Please choose a different name for your project.');
   }
 }
 
 const savePalette = (event) => {
   event.preventDefault();
-  const colors = [];
-  for (let i = 0; i < 5; i++) {
-    colors.push(document.querySelector('.color-' + i).querySelector('h2').innerText);
+
+  const projectName = document.querySelector('#project-select').value;
+  const paletteName = document.querySelector('#palette-name').value;
+
+  let projectToSaveTo;
+  let existingPalettes;
+  let isUnique;
+
+  if (document.querySelector(`li[name='${projectName}']`)) {
+    projectToSaveTo = document.querySelector(`li[name='${projectName}']`).querySelector('ul');
+    existingPalettes = projectToSaveTo.getAttribute('data-palettes').split(', ');
+    isUnique = !existingPalettes.includes(paletteName);
   }
+
+  if (paletteName !== '' && isUnique) {
+    const newList = [...existingPalettes, paletteName].join(', ');
+    projectToSaveTo.setAttribute('data-palettes', newList);
+
+    const newPaletteElement = document.createElement('li');
+    newPaletteElement.innerText = paletteName;
+
+    const paletteContainer = document.createElement('div');
+    paletteContainer.setAttribute('class', 'palette-display');
+
+    const colors = [];
+
+    for (let i = 0; i < 5; i++) {
+      colors.push(document.querySelector('.color-' + i).querySelector('h2').innerText);
+    }
+
+    colors.forEach(color => {
+      const newColorDiv = document.createElement('div');
+      newColorDiv.setAttribute('class', 'palette-color');
+      newColorDiv.style.backgroundColor = color;
+      newColorDiv.setAttribute('data-hex', color);
+      paletteContainer.appendChild(newColorDiv);
+    });
+
+    newPaletteElement.appendChild(paletteContainer);
+    projectToSaveTo.appendChild(newPaletteElement);
+  } else {
+    alert('Please use a different name for your palette.');
+  }
+  
 }
 
 document.querySelector('.new-palette').addEventListener('click', repopulatePalette);

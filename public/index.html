@@ -20,51 +20,14 @@
     <div class="controls-container">
       <h3 class="mb-1">Projects</h3>
       <p class="warning">You don't have any projects. Please create at least one to start saving palettes.</p>
-      <ul class="projects" data-projects="">
-        <!-- <li>Project 1
-          <ul class="palettes">
-            <li>Sunset
-              <div class="palette-display">
-                <div class="redo palette-color"></div>
-                <div class="yellowo palette-color"></div>
-                <div class="orangeo palette-color"></div>
-                <div class="blueo palette-color"></div>
-                <div class="grayo palette-color"></div>
-              </div>
-            </li>
-          </ul>
-        </li>
-        <li>Better Project
-          <ul class="palettes">
-            <li>Blue Grade
-              <div class="palette-display">
-                <div class="redo palette-color"></div>
-                <div class="yellowo palette-color"></div>
-                <div class="orangeo palette-color"></div>
-                <div class="blueo palette-color"></div>
-                <div class="grayo palette-color"></div>
-              </div>
-            </li>
-            <li>Fire
-              <div class="palette-display">
-                <div class="redo palette-color"></div>
-                <div class="yellowo palette-color"></div>
-                <div class="orangeo palette-color"></div>
-                <div class="blueo palette-color"></div>
-                <div class="grayo palette-color"></div>
-              </div>
-            </li>
-          </ul>
-        </li>
-        <li>Project the Third</li> -->
-      </ul>
+      <ul class="projects" data-projects=""></ul>
     </div>
     <form class="controls-container palette-form">
       <h3 class="mb-1">Save Palette To Project</h3>
       <label for="project-select">choose a project</label>
       <select id="project-select" class="mb-1"></select>
       <p>palette name</p>
-      <input type="text" class="txt mb-1">
+      <input id="palette-name" type="text" class="txt mb-1">
       <input type="submit" class="btn save-palette" value="Save Palette">
     </form>
   </aside>
@@ -81,7 +44,7 @@
     <section class="colors">
       <article class="color-0 white">
         <img src="assets/padlock-unlock.svg">
-        <h2>#FFFAEA</h2>
+        <h2>#E1E1E1</h2>
       </article>
       <article class="color-1 black">
         <img src="assets/padlock-unlock.svg">
