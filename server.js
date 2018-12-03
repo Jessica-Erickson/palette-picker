@@ -126,7 +126,7 @@ app.post('/api/v1/palettes', (request, response) => {
     });
 });
 
-app.delete('/api/v1/projects/:project_id/palettes/:palette_id', (request, response) => {
+app.delete('/api/v1/palettes/:id', (request, response) => {
   const { project_id , palette_id } = request.params;
 
   if (!project) {
