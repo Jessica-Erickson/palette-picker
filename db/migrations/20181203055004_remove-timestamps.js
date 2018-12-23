@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-    knex.schema.table('papers', function(table) {
+    knex.schema.table('projects', function(table) {
       table.timestamps(true, true);
     }),
     knex.schema.table('palettes', function(table) {
