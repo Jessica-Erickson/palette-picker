@@ -50,9 +50,10 @@ const createProject = (event) => {
     projectSelect.appendChild(newSelectElement);
 
     document.querySelector('.warning').style.display = 'none';
+    document.querySelector('.project-error').style.display = 'none';
     document.querySelector('.palette-form').style.display = 'block';
   } else {
-    alert('Please choose a different name for your project.');
+    document.querySelector('.project-error').style.display = 'inline';
   }
 }
 
@@ -98,8 +99,9 @@ const savePalette = (event) => {
 
     newPaletteElement.appendChild(paletteContainer);
     projectToSaveTo.appendChild(newPaletteElement);
+    document.querySelector('.palette-error').style.display = 'none';
   } else {
-    alert('Please use a different name for your palette.');
+    document.querySelector('.palette-error').style.display = 'inline';
   }
   
 }

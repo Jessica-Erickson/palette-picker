@@ -13,7 +13,9 @@
     </div>
     <form class="controls-container">
       <h3 class="mb-1">Create A New Project</h3>
-      <p>project name</p>
+      <p>project name
+        <span class="display-none project-error"> - please choose a different project name</span>
+      </p>
       <input type="text" class="txt mb-1" id="new-project-name">
       <input type="submit" class="btn create-project" value="Create Project">
     </form>
@@ -22,11 +24,13 @@
       <p class="warning">You don't have any projects. Please create at least one to start saving palettes.</p>
       <ul class="projects" data-projects=""></ul>
     </div>
-    <form class="controls-container palette-form">
+    <form class="controls-container display-none">
       <h3 class="mb-1">Save Palette To Project</h3>
       <label for="project-select">choose a project</label>
       <select id="project-select" class="mb-1"></select>
-      <p>palette name</p>
+      <p>palette name
+        <span class="display-none palette-error"> - please choose a different project name</span>
+      </p>
       <input id="palette-name" type="text" class="txt mb-1">
       <input type="submit" class="btn save-palette" value="Save Palette">
     </form>

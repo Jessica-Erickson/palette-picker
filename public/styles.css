@@ -238,6 +238,11 @@ li {
   width: 1rem;
 }
 
-.palette-form {
+.display-none {
   display: none;
+}
+
+.project-error,
+.palette-error {
+  color: #da1f17;
 }
