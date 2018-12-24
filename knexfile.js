@@ -15,7 +15,7 @@ module.exports = {
   },
   testing: {
     client: 'pg',
-    connection: 'postgres://localhost/palettepicker-testing',
+    connection: 'postgres://localhost/palettepicker_testing',
     migrations: {
       directory: './db/migrations'
     },
