@@ -33,4 +33,23 @@ describe('Palette Picker API V1', () => {
         });
     });
   });
+
+  describe('Add a new project to /api/v1/projects', () => {
+    it('should respond with a status of 201 if the request is appropriate', done => {
+      const newProject = { name: 'Midnight\'s Repose' }
+      chai.request(app)
+        .post('/api/v1/projects')
+        .send(newProject)
+        .end((error, response) => {
+          expect(response).to.have.status(201);
+          database('projects')
+            .where('id', 4)
+            .select()
+            .then(project => {
+              expect(project[0].name).to.deepEqual('Midnight\'s Repose');
+              done();
+            });
+        });
+    });
+  });
 });
