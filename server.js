@@ -11,7 +11,11 @@ app.use(express.static('public'));
 app.set('port', process.env.PORT || 3000);
 
 app.get('/api/v1/projects', (request, response) => {
-  // get all projects
+  database('projects')
+    .select()
+    .then(projects => {
+      response.status(200).json(projects);
+    });
 });
 
 app.post('/api/v1/projects', (request, response) => {
@@ -37,3 +41,5 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
 app.listen(app.get('port'), () => {
   console.log(`Palette Picker is running on ${app.get('port')}.`);
 });
+
+module.exports = app;
