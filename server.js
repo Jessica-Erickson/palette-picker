@@ -63,6 +63,10 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
   // delete a palette
 });
 
+app.use(function (request, response, next) {
+  response.status(404).send({ message: 'The page you are looking for does not exist. Please try /api/v1/projects instead.'});
+});
+
 app.listen(app.get('port'), () => {
   console.log(`Palette Picker is running on ${app.get('port')}.`);
 });
