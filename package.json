@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "NODE_ENV=testing mocha --exit"
+    "test": "mocha --exit"
   },
   "keywords": [],
   "author": "",
