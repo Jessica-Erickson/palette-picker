@@ -24,6 +24,10 @@ app.get('/api/v1/projects', (request, response) => {
 app.post('/api/v1/projects', (request, response) => {
   const { name } = request.body;
 
+  if (!name) {
+    return response.status(422).send({ message: 'Failure: request body should be { name: <String> }'});
+  }
+
   database('projects')
     .select()
     .then(projects => {
