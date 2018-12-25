@@ -36,7 +36,7 @@ describe('Palette Picker API V1', () => {
 
   describe('Add a new project to /api/v1/projects', () => {
     it('should respond with a status of 201 if the request is appropriate', done => {
-      const newProject = { name: 'Midnight\'s Repose' }
+      const newProject = { name: 'Midnight\'s Repose' };
       chai.request(app)
         .post('/api/v1/projects')
         .send(newProject)
@@ -48,6 +48,23 @@ describe('Palette Picker API V1', () => {
             .where('id', 4)
             .then(project => {
               expect(project[0].name).to.deep.equal('Midnight\'s Repose');
+              done();
+            });
+        });
+    });
+
+    it('should respond with a status of 409 if the project with that name already exists', done => {
+      const newProject = { name: 'Spring' };
+      chai.request(app)
+        .post('/api/v1/projects')
+        .send(newProject)
+        .end((error, response) => {
+          expect(response).to.have.status(409);
+          expect(response.body.message).to.deep.equal('Failure: Project Spring already exists.');
+          database('projects')
+            .select()
+            .then(projects => {
+              expect(projects).to.have.length(3);
               done();
             });
         });
