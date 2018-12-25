@@ -25,7 +25,7 @@ describe('Palette Picker API V1', () => {
           expect(response).to.be.json;
           expect(response.body).to.be.an('array');
           expect(response.body).to.have.length(3);
-          for (let i = 0; i < 3; i++) {
+          for (let i = 0; i < response.body.length; i++) {
             expect(response.body[i]).to.have.property('name');
             expect(response.body[i].name).to.not.be.undefined;
           }
@@ -42,11 +42,12 @@ describe('Palette Picker API V1', () => {
         .send(newProject)
         .end((error, response) => {
           expect(response).to.have.status(201);
+          expect(response.body.message).to.deep.equal('Success! Project Midnight\'s Repose has been stored and given id number 4');
           database('projects')
-            .where('id', 4)
             .select()
+            .where('id', 4)
             .then(project => {
-              expect(project[0].name).to.deepEqual('Midnight\'s Repose');
+              expect(project[0].name).to.deep.equal('Midnight\'s Repose');
               done();
             });
         });

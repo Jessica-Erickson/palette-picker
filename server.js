@@ -22,7 +22,16 @@ app.get('/api/v1/projects', (request, response) => {
 });
 
 app.post('/api/v1/projects', (request, response) => {
-  
+  const { name } = request.body;
+
+  database('projects')
+    .insert({ name }, 'id')
+    .then(project_id => {
+      response.status(201).send({ message: `Success! Project ${name} has been stored and given id number ${project_id[0]}` });
+    })
+    .catch(error => {
+      response.status(500).send({ error });
+    });
 });
 
 app.get('/api/v1/projects/:id', (request, response) => {
