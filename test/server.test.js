@@ -70,8 +70,25 @@ describe('Palette Picker API V1', () => {
         });
     });
 
-    it('should respond with a status of 422 of the request body does not have a name', done => {
+    it('should respond with a status of 422 if the request body does not have a name', done => {
       const newProject = { potato: 'Fire' };
+      chai.request(app)
+        .post('/api/v1/projects')
+        .send(newProject)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.body.message).to.deep.equal('Failure: request body should be { name: <String> }');
+          database('projects')
+            .select()
+            .then(projects => {
+              expect(projects).to.have.length(3);
+              done();
+            });
+        });
+    });
+
+    it('should respond with a status of 422 if the request body name is an empty string', done => {
+      const newProject = { name: '' };
       chai.request(app)
         .post('/api/v1/projects')
         .send(newProject)
