@@ -29,7 +29,7 @@ app.post('/api/v1/projects', (request, response) => {
     .then(projects => {
       const exists = projects.some(project => project.name === name);
       if (exists) {
-        return response.status(409).send({ message: `Failure: Project ${name} already exists.`});
+        response.status(409).send({ message: `Failure: Project ${name} already exists.`});
       } else {
         database('projects')
           .insert({ name }, 'id')
