@@ -227,6 +227,22 @@ describe('Palette Picker API V1', () => {
         });
     });
 
+    it('should respond with a status of 500 if the associated project does not exist', done => {
+      const newPalette = {
+                            name: 'Coral',
+                            values: ['#E4ECCC', '#F5E6A3', '#F6AF7D', '#FA7964', '#554F40'],
+                            project_id: 404
+                          };
+
+      chai.request(app)
+        .post('/api/v1/palettes')
+        .send(newPalette)
+        .end((error, response) => {
+          expect(response).to.have.status(500);
+          done();
+        });
+    });
+
     // it('should respond with a status of 422 if the request does not have a name, values, or project_id', done => {
 
     // });
