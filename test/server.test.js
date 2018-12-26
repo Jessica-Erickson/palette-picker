@@ -255,7 +255,7 @@ describe('Palette Picker API V1', () => {
         .send(newPalette)
         .end((error, response) => {
           expect(response).to.have.status(422);
-          expect(response.body.message).to.deep.equal('');
+          expect(response.body.message).to.deep.equal('Failure: request body should be { name: <String>, values: <String[]>, project_id: <Int> }');
           database('palettes')
             .select()
             .then(palettes => {

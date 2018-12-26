@@ -105,6 +105,12 @@ app.delete('/api/v1/project/:id', (request, response) => {
 app.post('/api/v1/palettes', (request, response) => {
   const { name, values, project_id } = request.body;
 
+  for (let requiredParameter of [name, values, project_id]) {
+    if (!requiredParameter) {
+      return response.status(422).send({ message: 'Failure: request body should be { name: <String>, values: <String[]>, project_id: <Int> }' });
+    }
+  }
+
   database('palettes')
     .select()
     .then(palettes => {
