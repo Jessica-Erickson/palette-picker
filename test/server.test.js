@@ -181,4 +181,40 @@ describe('Palette Picker API V1', () => {
         });
     });
   });
+
+  describe('Post a new palette to /api/v1/palettes', () => {
+    it('should respond with a status of 201 if the request is appropriate', done => {
+      const newPalette = {
+                            name: 'Coral',
+                            values: ['#E4ECCC', '#F5E6A3', '#F6AF7D', '#FA7964', '#554F40'],
+                            project_id: 2
+                          }
+
+      chai.request(app)
+        .post('/api/v1/palettes')
+        .send(newPalette)
+        .end((error, response) => {
+          expect(response).to.have.status(201);
+          expect(response.body.message).to.deep.equal('Success! Palette Coral has been stored and given id number 10');
+          database('palettes')
+            .select()
+            .then(palettes => {
+              expect(palettes).to.have.length(10);
+              done();
+            });
+        });
+    });
+
+    // it('should respond with a status of 409 if a palette with that name already exists', done => {
+
+    // });
+
+    // it('should respond with a status of 422 if the request does not have a name, values, or project_id', done => {
+
+    // });
+
+    // it('should respond with a status of 422 if the request\'s values value is not an array of five strings', done => {
+
+    // });
+  });
 });
