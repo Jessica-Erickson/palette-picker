@@ -265,8 +265,26 @@ describe('Palette Picker API V1', () => {
         });
     });
 
-    // it('should respond with a status of 422 if the request\'s values value is not an array of five strings', done => {
+    it('should respond with a status of 422 if the request\'s values value is not an array of five strings', done => {
+      const newPalette = {
+                            name: 'Coral',
+                            values: [1, 2, 3, 4, 5],
+                            project_id: 2
+                          };
 
-    // });
+      chai.request(app)
+        .post('/api/v1/palettes')
+        .send(newPalette)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          expect(response.body.message).to.deep.equal('Failure: request body should be { name: <String>, values: <String[]>, project_id: <Int> }');
+          database('palettes')
+            .select()
+            .then(palettes => {
+              expect(palettes).to.have.length(9);
+              done();
+            });
+        });
+    });
   });
 });
