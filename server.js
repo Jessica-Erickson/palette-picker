@@ -105,10 +105,20 @@ app.delete('/api/v1/project/:id', (request, response) => {
 app.post('/api/v1/palettes', (request, response) => {
   const { name, values, project_id } = request.body;
 
-  for (let requiredParameter of [name, values, project_id]) {
-    if (!requiredParameter) {
-      return response.status(422).send({ message: 'Failure: request body should be { name: <String>, values: <String[]>, project_id: <Int> }' });
+
+  if (!(name && values && project_id)) {
+    return response.status(422).send({ message: 'Failure: request body should be { name: <String>, values: <String[]>, project_id: <Int> }' });
+  }
+
+  const valuesAreInvalid = values.reduce((acc, value) => {
+    if (value.length !== 7 || value.charAt(0) !== '#') {
+      acc = true;
     }
+    return acc;
+  }, false);
+
+  if (values.length !== 5 || valuesAreInvalid) {
+    return response.status(422).send({ message: 'Failure: request body should be { name: <String>, values: <String[]>, project_id: <Int> }' });
   }
 
   database('palettes')
