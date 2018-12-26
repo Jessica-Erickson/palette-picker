@@ -106,9 +106,22 @@ app.post('/api/v1/palettes', (request, response) => {
   const { name, values, project_id } = request.body;
 
   database('palettes')
-    .insert({name, values, project_id}, 'id')
-    .then(palette_id => {
-      response.status(201).send({ message: `Success! Palette ${name} has been stored and given id number ${palette_id[0]}` });
+    .select()
+    .then(palettes => {
+      const exists = palettes.some(palette => palette.name === name);
+
+      if (exists) {
+        response.status(409).send({ message: `Failure: Palette ${name} already exists.`});
+      } else {
+        database('palettes')
+          .insert({name, values, project_id}, 'id')
+          .then(palette_id => {
+            response.status(201).send({ message: `Success! Palette ${name} has been stored and given id number ${palette_id[0]}` });
+          })
+          .catch(error => {
+            response.status(500).send({ error });
+          });
+      }
     })
     .catch(error => {
       response.status(500).send({ error });
