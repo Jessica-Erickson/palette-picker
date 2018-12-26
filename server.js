@@ -47,12 +47,21 @@ app.post('/api/v1/projects', (request, response) => {
     })
     .catch(error => {
       response.status(500).send({ error });
-    })
-
+    });
 });
 
 app.get('/api/v1/project/:id', (request, response) => {
-  // get all palettes associated with a particular project
+  const { id } = request.params;
+
+  database('palettes')
+    .where('project_id', parseInt(id))
+    .select()
+    .then(palettes => {
+      response.status(200).json(palettes);
+    })
+    .catch(error => {
+      response.status(500).send({ error });
+    });
 });
 
 app.delete('api/v1/project/:id', (request, response) => {

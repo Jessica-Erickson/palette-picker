@@ -118,7 +118,7 @@ describe('Palette Picker API V1', () => {
             expect(response.body[i]).to.have.property('project_id');
             expect(response.body[i].name).to.not.be.undefined;
             expect(response.body[i].values).to.be.an('array');
-            expect(response.body[i].project_id).to.be(2);
+            expect(response.body[i].project_id).to.equal(2);
           }
           done();
         });
