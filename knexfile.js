@@ -8,6 +8,20 @@ module.exports = {
     migrations: {
       directory: './db/migrations'
     },
+    seeds: {
+      directory: './db/seeds',
+    },
+    useNullAsDefault: true
+  },
+  testing: {
+    client: 'pg',
+    connection: 'postgres://localhost/palettepicker_testing',
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds',
+    },
     useNullAsDefault: true
   },
   production: {
@@ -15,6 +29,9 @@ module.exports = {
     connection: process.env.DATABASE_URL + `?ssl=true`,
     migrations: {
       directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds',
     },
     useNullAsDefault: true
   }

@@ -2,7 +2,8 @@ const repopulatePalette = () => {
   const colors = [];
 
   while (colors.length < 5) {
-    colors.push('#' + Math.floor(Math.random() * 16777216).toString(16));
+    const newColor = '000000' + Math.floor(Math.random() * 16777216).toString(16)
+    colors.push('#' + newColor.slice(-6));
   }
 
   colors.forEach((color, index) => {
@@ -49,9 +50,10 @@ const createProject = (event) => {
     projectSelect.appendChild(newSelectElement);
 
     document.querySelector('.warning').style.display = 'none';
+    document.querySelector('.project-error').style.display = 'none';
     document.querySelector('.palette-form').style.display = 'block';
   } else {
-    alert('Please choose a different name for your project.');
+    document.querySelector('.project-error').style.display = 'inline';
   }
 }
 
@@ -97,8 +99,9 @@ const savePalette = (event) => {
 
     newPaletteElement.appendChild(paletteContainer);
     projectToSaveTo.appendChild(newPaletteElement);
+    document.querySelector('.palette-error').style.display = 'none';
   } else {
-    alert('Please use a different name for your palette.');
+    document.querySelector('.palette-error').style.display = 'inline';
   }
   
 }
