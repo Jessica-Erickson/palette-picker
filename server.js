@@ -103,7 +103,16 @@ app.delete('/api/v1/project/:id', (request, response) => {
 });
 
 app.post('/api/v1/palettes', (request, response) => {
-  // post a new palette
+  const { name, values, project_id } = request.body;
+
+  database('palettes')
+    .insert({name, values, project_id}, 'id')
+    .then(palette_id => {
+      response.status(201).send({ message: `Success! Palette ${name} has been stored and given id number ${palette_id[0]}` });
+    })
+    .catch(error => {
+      response.status(500).send({ error });
+    });
 });
 
 app.delete('/api/v1/palette/:id', (request, response) => {
