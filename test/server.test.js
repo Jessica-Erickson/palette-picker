@@ -133,5 +133,21 @@ describe('Palette Picker API V1', () => {
           done();
         });
     });
+
+    it('should respond with a status of 200 and return an empty array if a project exists, but does not have any palettes associated with it', done => {
+      chai.request(app)
+        .post('/api/v1/projects')
+        .send({ name: 'Lonely' })
+        .end((error, response) => {
+          chai.request(app)
+            .get('/api/v1/project/4')
+            .end((error, response) => {
+              expect(response).to.have.status(200);
+              expect(response.body).to.be.an('array');
+              expect(response.body).to.have.length(0);
+              done();
+            });
+        });
+    });
   });
 });
