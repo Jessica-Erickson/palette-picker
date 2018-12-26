@@ -123,5 +123,15 @@ describe('Palette Picker API V1', () => {
           done();
         });
     });
+
+    it('should respond with a status of 404 if the project with that id does not exist', done => {
+      chai.request(app)
+        .get('/api/v1/project/404')
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body.message).to.deep.equal('A project with id 404 does not exist.');
+          done();
+        });
+    });
   });
 });

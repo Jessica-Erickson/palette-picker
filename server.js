@@ -53,15 +53,28 @@ app.post('/api/v1/projects', (request, response) => {
 app.get('/api/v1/project/:id', (request, response) => {
   const { id } = request.params;
 
-  database('palettes')
-    .where('project_id', parseInt(id))
+  database('projects')
+    .where('id', parseInt(id))
     .select()
-    .then(palettes => {
-      response.status(200).json(palettes);
+    .then(project => {
+      if (project.length) {
+        database('palettes')
+          .where('project_id', parseInt(id))
+          .select()
+          .then(palettes => {
+            response.status(200).json(palettes);
+          })
+          .catch(error => {
+            response.status(500).send({ error });
+          });
+      } else {
+        response.status(404).send({ message: `A project with id ${id} does not exist.`});
+      }
     })
     .catch(error => {
       response.status(500).send({ error });
     });
+
 });
 
 app.delete('api/v1/project/:id', (request, response) => {
