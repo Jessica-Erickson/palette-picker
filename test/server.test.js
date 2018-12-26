@@ -157,6 +157,7 @@ describe('Palette Picker API V1', () => {
         .delete('/api/v1/project/2')
         .end((error, response) => {
           expect(response).to.have.status(202);
+          expect(response.body.message).to.equal('The project with id 2 has been deleted');
           database('projects')
             .where('id', 2)
             .select()
@@ -172,6 +173,7 @@ describe('Palette Picker API V1', () => {
         .delete('/api/v1/project/404')
         .end((error, response) => {
           expect(response).to.have.status(404);
+          expect(response.body.message).to.equal('A project with id 404 does not exist');
           database('projects')
             .select()
             .then(projects => {

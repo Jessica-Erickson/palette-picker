@@ -90,7 +90,7 @@ app.delete('/api/v1/project/:id', (request, response) => {
           if (affectedRows) {
             response.status(202).send({ message: `The project with id ${id} has been deleted`});
           } else {
-            response.status(404).send({ message: `A project with id ${id} does not exist.`});
+            response.status(404).send({ message: `A project with id ${id} does not exist`});
           }
         })
         .catch(error => {
