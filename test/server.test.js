@@ -289,4 +289,26 @@ describe('Palette Picker API V1', () => {
         });
     });
   });
+
+  describe('Delete a palette from /api/v1/palette/:id', () => {
+    it('should respond with a status of 202 and delete a palette if it exists', done => {
+      chai.request(app)
+        .delete('/api/v1/palette/5')
+        .end((error, response) => {
+          expect(response).to.have.status(202);
+          expect(response.body.message).to.equal('The palette with id 5 has been deleted');
+          database('palettes')
+            .where('id', 5)
+            .select()
+            .then(palette => {
+              expect(palette).to.have.length(0);
+              done();
+            });
+        });
+    });
+
+    it('should respond with a status of 404 if the palette does not exist', done => {
+
+    });
+  });
 });
