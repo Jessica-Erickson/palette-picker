@@ -77,7 +77,29 @@ app.get('/api/v1/project/:id', (request, response) => {
 });
 
 app.delete('/api/v1/project/:id', (request, response) => {
-  // delete project with id
+  const { id } = request.params;
+
+  database('palettes')
+    .where('project_id', parseInt(id))
+    .del()
+    .then(() => {
+      database('projects')
+        .where('id', parseInt(id))
+        .del()
+        .then(affectedRows => {
+          if (affectedRows) {
+            response.status(202).send({ message: `The project with id ${id} has been deleted`});
+          } else {
+            response.status(404).send({ message: `A project with id ${id} does not exist.`});
+          }
+        })
+        .catch(error => {
+          response.status(500).send({ error });
+        });
+    })
+    .catch(error => {
+      response.status(500).send({ error });
+    });
 });
 
 app.post('/api/v1/palettes', (request, response) => {
