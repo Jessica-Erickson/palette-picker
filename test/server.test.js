@@ -308,7 +308,18 @@ describe('Palette Picker API V1', () => {
     });
 
     it('should respond with a status of 404 if the palette does not exist', done => {
-
+      chai.request(app)
+        .delete('/api/v1/palette/404')
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          expect(response.body.message).to.equal('A project with id 404 does not exist');
+          database('palettes')
+            .select()
+            .then(palettes => {
+              expect(palettes).to.have.length(9);
+              done();
+            });
+        });
     });
   });
 });
