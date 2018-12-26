@@ -188,7 +188,7 @@ describe('Palette Picker API V1', () => {
                             name: 'Coral',
                             values: ['#E4ECCC', '#F5E6A3', '#F6AF7D', '#FA7964', '#554F40'],
                             project_id: 2
-                          }
+                          };
 
       chai.request(app)
         .post('/api/v1/palettes')
@@ -205,9 +205,27 @@ describe('Palette Picker API V1', () => {
         });
     });
 
-    // it('should respond with a status of 409 if a palette with that name already exists', done => {
+    it('should respond with a status of 409 if a palette with that name already exists', done => {
+      const newPalette = {
+                            name: 'Lakeside',
+                            values: ['#E4ECCC', '#F5E6A3', '#F6AF7D', '#FA7964', '#554F40'],
+                            project_id: 1
+                          };
 
-    // });
+      chai.request(app)
+        .post('/api/v1/palettes')
+        .send(newPalette)
+        .end((error, response) => {
+          expect(response).to.have.status(409);
+          expect(response.body.message).to.deep.equal('Failure: Palette Lakeside already exists.');
+          database('palettes')
+            .select()
+            .then(palettes => {
+              expect(palettes).to.have.length(9);
+              done();
+            });
+        });
+    });
 
     // it('should respond with a status of 422 if the request does not have a name, values, or project_id', done => {
 
