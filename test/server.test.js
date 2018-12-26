@@ -312,7 +312,7 @@ describe('Palette Picker API V1', () => {
         .delete('/api/v1/palette/404')
         .end((error, response) => {
           expect(response).to.have.status(404);
-          expect(response.body.message).to.equal('A project with id 404 does not exist');
+          expect(response.body.message).to.equal('A palette with id 404 does not exist');
           database('palettes')
             .select()
             .then(palettes => {

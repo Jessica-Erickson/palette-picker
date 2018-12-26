@@ -145,7 +145,21 @@ app.post('/api/v1/palettes', (request, response) => {
 });
 
 app.delete('/api/v1/palette/:id', (request, response) => {
-  // delete a palette
+  const { id } = request.params;
+
+  database('palettes')
+    .where('id', parseInt(id))
+    .del()
+    .then(affectedRows => {
+      if (affectedRows) {
+        response.status(202).send({ message: `The palette with id ${id} has been deleted`});
+      } else {
+        response.status(404).send({ message: `A palette with id ${id} does not exist`});
+      }
+    })
+    .catch(error => {
+      response.status(500).send({ error });
+    });
 });
 
 app.use((request, response, next) => {
