@@ -51,11 +51,11 @@ app.post('/api/v1/projects', (request, response) => {
 
 });
 
-app.get('/api/v1/projects/:id', (request, response) => {
+app.get('/api/v1/project/:id', (request, response) => {
   // get all palettes associated with a particular project
 });
 
-app.delete('api/v1/projects/:id', (request, response) => {
+app.delete('api/v1/project/:id', (request, response) => {
   // delete project with id
 });
 
@@ -63,11 +63,11 @@ app.post('/api/v1/palettes', (request, response) => {
   // post a new palette
 });
 
-app.delete('/api/v1/palettes/:id', (request, response) => {
+app.delete('/api/v1/palette/:id', (request, response) => {
   // delete a palette
 });
 
-app.use(function (request, response, next) {
+app.use((request, response, next) => {
   response.status(404).send({ message: 'The page you are looking for does not exist. Please try /api/v1/projects instead.'});
 });
 

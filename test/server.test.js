@@ -104,4 +104,24 @@ describe('Palette Picker API V1', () => {
         });
     });
   });
+
+  describe('Get all palettes for a given project from /api/v1/project/:id', () => {
+    it('should respond with a status of 200 and return an array of all palettes associated with a given project if it exists', done => {
+      chai.request(app)
+        .get('/api/v1/project/2')
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          expect(response.body).to.be.an('array');
+          for (let i = 0; i < response.body.length; i++) {
+            expect(response.body[i]).to.have.property('name');
+            expect(response.body[i]).to.have.property('values');
+            expect(response.body[i]).to.have.property('project_id');
+            expect(response.body[i].name).to.not.be.undefined;
+            expect(response.body[i].values).to.be.an('array');
+            expect(response.body[i].project_id).to.be(2);
+          }
+          done();
+        });
+    });
+  });
 });
