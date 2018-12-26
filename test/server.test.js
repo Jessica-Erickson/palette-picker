@@ -150,4 +150,35 @@ describe('Palette Picker API V1', () => {
         });
     });
   });
+
+  describe('Delete a project from /api/v1/project/:id', () => {
+    it('should respond with a status of 202 and delete a project if it exists', done => {
+      chai.request(app)
+        .delete('/api/v1/project/2')
+        .end((error, response) => {
+          expect(response).to.have.status(202);
+          database('projects')
+            .where('id', 2)
+            .select()
+            .then(project => {
+              expect(project).to.have.length(0);
+              done();
+            });
+        });
+    });
+
+    it('should respond with a status of 404 if the project does not exist', done => {
+      chai.request(app)
+        .delete('/api/v1/project/404')
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          database('projects')
+            .select()
+            .then(projects => {
+              expect(projects).to.have.length(3);
+              done();
+            });
+        });
+    });
+  });
 });

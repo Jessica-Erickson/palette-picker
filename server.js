@@ -74,10 +74,9 @@ app.get('/api/v1/project/:id', (request, response) => {
     .catch(error => {
       response.status(500).send({ error });
     });
-
 });
 
-app.delete('api/v1/project/:id', (request, response) => {
+app.delete('/api/v1/project/:id', (request, response) => {
   // delete project with id
 });
 
