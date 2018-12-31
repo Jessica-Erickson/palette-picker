@@ -17,7 +17,7 @@ const handleControlsClick = (event) => {
     saveProject();
   } else if (etc.contains('save-palette')) {
     savePalette();
-  } else if (etc.contains('palette-display')) {
+  } else if (etc.contains('existing-palette')) {
     event.target.querySelectorAll('.palette-color').forEach((paletteColor, index) => {
       setPaletteColor(paletteColor.dataset.hex, index);
     });
@@ -137,6 +137,7 @@ const savePalette = async () => {
 const appendPalette = (name, colorList, project) => {
   const newPaletteElement = document.createElement('li');
   newPaletteElement.innerText = name;
+  newPaletteElement.classList.add('existing-palette');
 
   const paletteContainer = document.createElement('div');
   paletteContainer.setAttribute('class', 'palette-display');
