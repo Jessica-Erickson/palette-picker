@@ -14,13 +14,43 @@ const handleControlsClick = (event) => {
   if (etc.contains('new-palette')) {
     repopulatePalette();
   } else if (etc.contains('create-project')) {
-
+    saveProject();
   } else if (etc.contains('save-palette')) {
 
   } else if (etc.contains('palette-display')) {
     event.target.querySelectorAll('.palette-color').forEach((paletteColor, index) => {
       setPaletteColor(paletteColor.dataset.hex, index);
     });
+  }
+}
+
+const saveProject = async () => {
+  const name = document.querySelector('#new-project-name').value;
+  const options = { method: 'POST',
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ name: name }) };
+  const response = await fetch('/api/v1/projects', options);
+  
+  if (response.status === 201) {
+    const projectsList = document.querySelector('.projects');
+    const newProjectElement = document.createElement('li');
+    const projectSelect = document.querySelector('#project-select');
+    const newSelectElement = document.createElement('option');
+
+    newProjectElement.innerHTML = `${name}<ul class="palettes"></ul>`;
+    newSelectElement.value = `${name}`;
+    newSelectElement.innerText = name;
+
+    projectsList.appendChild(newProjectElement);
+    projectSelect.appendChild(newSelectElement);
+
+    document.querySelector('.warning').style.display = 'none';
+    document.querySelector('.project-error').style.display = 'none';
+    document.querySelector('.palette-form').style.display = 'block';
+  } else {
+    document.querySelector('.project-error').style.display = 'inline';
   }
 }
 
