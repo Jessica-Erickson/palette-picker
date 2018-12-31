@@ -1,23 +1,3 @@
-const repopulatePalette = () => {
-  const colors = [];
-
-  while (colors.length < 5) {
-    const newColor = '000000' + Math.floor(Math.random() * 16777216).toString(16)
-    colors.push('#' + newColor.slice(-6));
-  }
-
-  colors.forEach((color, index) => {
-    const paletteColor = document.querySelector('.color-' + index);
-    const lock = paletteColor.querySelector('img').getAttribute('src');
-    if (lock === 'assets/padlock-unlock.svg') {
-      document.querySelectorAll('.color-' + index).forEach(item => {
-        item.style.backgroundColor = colors[index];
-      });
-      paletteColor.querySelector('h2').innerText = colors[index].toUpperCase();
-    }
-  });
-}
-
 const toggleLock = (event) => {
   const lock = event.target.getAttribute('src');
   if (lock === 'assets/padlock-unlock.svg') {
@@ -27,25 +7,71 @@ const toggleLock = (event) => {
   }
 }
 
-const createProject = (event) => {
+const handleControlsClick = (event) => {
   event.preventDefault();
-  const projectName = document.querySelector('#new-project-name').value;
-  const projectsList = document.querySelector('.projects');
-  const existingProjects = projectsList.getAttribute('data-projects').split(', ');
-  const isUnique = !existingProjects.includes(projectName);
+  const etc = event.target.classList;
 
-  if (projectName !== '' && isUnique) {
-    const newList = [...existingProjects, projectName].join(', ');
+  if (etc.contains('new-palette')) {
+    repopulatePalette();
+  } else if (etc.contains('create-project')) {
+    saveProject();
+  } else if (etc.contains('save-palette')) {
+    savePalette();
+  } else if (etc.contains('palette-display')) {
+    event.target.querySelectorAll('.palette-color').forEach((paletteColor, index) => {
+      setPaletteColor(paletteColor.dataset.hex, index);
+    });
+  }
+}
+
+const repopulatePalette = () => {
+  for (let i = 0; i < 5; i++) {
+    const newColor = '000000' + Math.floor(Math.random() * 16777216).toString(16).toUpperCase();
+    setPaletteColor('#' + newColor.slice(-6), i);
+  }
+}
+
+const setPaletteColor = (colorCode, position) => {
+  const lock = document.querySelector('.color-' + position).querySelector('.lock').getAttribute('src');
+
+  if (lock === 'assets/padlock.svg') {
+    return;
+  }
+
+  document.querySelectorAll('.color-' + position).forEach((colorDisplay, index) => {
+    if (!index) {
+      colorDisplay.querySelector('h2').innerText = colorCode;
+      colorDisplay.style.backgroundColor = colorCode;
+    } else {
+      colorDisplay.style.backgroundColor = colorCode;
+    }
+  });
+}
+
+const saveProject = async () => {
+  const name = document.querySelector('#new-project-name').value;
+  const options = { method: 'POST',
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ name: name }) };
+  const response = await fetch('/api/v1/projects', options);
+  
+  if (response.status === 201) {
+    const data = await response.json();
+    const projectId = data.project_id;
+
+    const projectsList = document.querySelector('.projects');
     const newProjectElement = document.createElement('li');
     const projectSelect = document.querySelector('#project-select');
     const newSelectElement = document.createElement('option');
 
-    newProjectElement.innerHTML = `${projectName}<ul class="palettes" data-palettes=""></ul>`;
-    newProjectElement.setAttribute('name', projectName);
-    newSelectElement.value = `${projectName}`;
-    newSelectElement.innerText = projectName;
+    newProjectElement.innerHTML = `${name}<ul class="palettes"></ul>`;
+    newProjectElement.setAttribute('name', name);
+    newSelectElement.value = name;
+    newSelectElement.innerText = name;
+    newSelectElement.dataset.id = projectId;
 
-    projectsList.setAttribute('data-projects', newList);
     projectsList.appendChild(newProjectElement);
     projectSelect.appendChild(newSelectElement);
 
@@ -57,25 +83,29 @@ const createProject = (event) => {
   }
 }
 
-const savePalette = (event) => {
-  event.preventDefault();
-
-  const projectName = document.querySelector('#project-select').value;
+const savePalette = async () => {
   const paletteName = document.querySelector('#palette-name').value;
+  const project = document.querySelector('#project-select');
+  const projectName = project.value;
+  const projectId = project.querySelector(`option[value='${projectName}']`).dataset.id;
+  const projectToSaveTo = document.querySelector(`li[name='${projectName}']`).querySelector('ul');
+  const colors = [];
 
-  let projectToSaveTo;
-  let existingPalettes;
-  let isUnique;
-
-  if (document.querySelector(`li[name='${projectName}']`)) {
-    projectToSaveTo = document.querySelector(`li[name='${projectName}']`).querySelector('ul');
-    existingPalettes = projectToSaveTo.getAttribute('data-palettes').split(', ');
-    isUnique = !existingPalettes.includes(paletteName);
+  for (let i = 0; i < 5; i++) {
+    colors.push(document.querySelector('.color-' + i).querySelector('h2').innerText);
   }
 
-  if (paletteName !== '' && isUnique) {
-    const newList = [...existingPalettes, paletteName].join(', ');
-    projectToSaveTo.setAttribute('data-palettes', newList);
+  const newPaletteData = { name: paletteName, 
+                           values: colors, 
+                           project_id: projectId };
+  const options = { method: 'POST',
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newPaletteData) };
+  const response = await fetch('/api/v1/palettes', options);
+
+  if (response.status === 201) {
 
     const newPaletteElement = document.createElement('li');
     newPaletteElement.innerText = paletteName;
@@ -83,11 +113,6 @@ const savePalette = (event) => {
     const paletteContainer = document.createElement('div');
     paletteContainer.setAttribute('class', 'palette-display');
 
-    const colors = [];
-
-    for (let i = 0; i < 5; i++) {
-      colors.push(document.querySelector('.color-' + i).querySelector('h2').innerText);
-    }
 
     colors.forEach(color => {
       const newColorDiv = document.createElement('div');
@@ -102,13 +127,11 @@ const savePalette = (event) => {
     document.querySelector('.palette-error').style.display = 'none';
   } else {
     document.querySelector('.palette-error').style.display = 'inline';
-  }
-  
+  } 
 }
 
-document.querySelector('.new-palette').addEventListener('click', repopulatePalette);
-document.querySelectorAll('img').forEach(img => {
-  img.addEventListener('click', toggleLock);
+document.querySelector('aside').addEventListener('click', handleControlsClick);
+
+document.querySelectorAll('.lock').forEach(lock => {
+  lock.addEventListener('click', toggleLock);
 });
-document.querySelector('.create-project').addEventListener('click', createProject)
-document.querySelector('.save-palette').addEventListener('click', savePalette)
