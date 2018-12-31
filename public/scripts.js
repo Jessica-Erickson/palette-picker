@@ -63,7 +63,7 @@ const saveProject = async () => {
 
     appendProject(name);
     addProjectOption(name, projectId);
-    hideWarnings();
+    hideProjectWarnings();
     showPaletteForm();
   } else {
     showProjectWarning();
@@ -91,7 +91,7 @@ const addProjectOption = (projectName, id) => {
   projectSelect.appendChild(newSelectElement);
 }
 
-const hideWarnings = () => {
+const hideProjectWarnings = () => {
   document.querySelector('.warning').style.display = 'none';
   document.querySelector('.project-error').style.display = 'none';
 }
@@ -127,28 +127,39 @@ const savePalette = async () => {
   const response = await fetch('/api/v1/palettes', options);
 
   if (response.status === 201) {
-
-    const newPaletteElement = document.createElement('li');
-    newPaletteElement.innerText = paletteName;
-
-    const paletteContainer = document.createElement('div');
-    paletteContainer.setAttribute('class', 'palette-display');
-
-
-    colors.forEach(color => {
-      const newColorDiv = document.createElement('div');
-      newColorDiv.setAttribute('class', 'palette-color');
-      newColorDiv.style.backgroundColor = color;
-      newColorDiv.setAttribute('data-hex', color);
-      paletteContainer.appendChild(newColorDiv);
-    });
-
-    newPaletteElement.appendChild(paletteContainer);
-    projectToSaveTo.appendChild(newPaletteElement);
-    document.querySelector('.palette-error').style.display = 'none';
+    appendPalette(paletteName, colors, projectToSaveTo);
+    hidePaletteWarning();
   } else {
-    document.querySelector('.palette-error').style.display = 'inline';
+    showPaletteWarning();
   } 
+}
+
+const appendPalette = (name, colorList, project) => {
+  const newPaletteElement = document.createElement('li');
+  newPaletteElement.innerText = name;
+
+  const paletteContainer = document.createElement('div');
+  paletteContainer.setAttribute('class', 'palette-display');
+
+
+  colorList.forEach(color => {
+    const newColorDiv = document.createElement('div');
+    newColorDiv.setAttribute('class', 'palette-color');
+    newColorDiv.style.backgroundColor = color;
+    newColorDiv.setAttribute('data-hex', color);
+    paletteContainer.appendChild(newColorDiv);
+  });
+
+  newPaletteElement.appendChild(paletteContainer);
+  project.appendChild(newPaletteElement);
+}
+
+const hidePaletteWarning = () => {
+  document.querySelector('.palette-error').style.display = 'none';
+}
+
+const showPaletteWarning = () => {
+  document.querySelector('.palette-error').style.display = 'inline';
 }
 
 document.querySelector('aside').addEventListener('click', handleControlsClick);
