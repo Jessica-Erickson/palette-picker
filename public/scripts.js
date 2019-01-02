@@ -21,6 +21,10 @@ const handleControlsClick = (event) => {
     event.target.querySelectorAll('.palette-color').forEach((paletteColor, index) => {
       setPaletteColor(paletteColor.dataset.hex, index);
     });
+  } else if (etc.contains('palette-color')) {
+    event.target.parentElement.parentElement.querySelectorAll('.palette-color').forEach((paletteColor, index) => {
+      setPaletteColor(paletteColor.dataset.hex, index);
+    });
   }
 }
 
