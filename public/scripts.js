@@ -167,8 +167,39 @@ const showPaletteWarning = () => {
   document.querySelector('.palette-error').style.display = 'inline';
 }
 
+const getExistingPalettes = async () => {
+  const response = await fetch('/api/v1/projects');
+
+  if (response.status === 200) {
+    const data = await response.json();
+    data.forEach(async project => {
+      appendProject(project.name);
+      addProjectOption(project.name, project.id);
+      const projectToSaveTo = document.querySelector(`li[name='${project.name}']`).querySelector('ul');
+      const response = await fetch(`/api/v1/project/${project.id}`);
+
+      if (response.status === 200) {
+        const data = await response.json();
+        data.forEach(palette => {
+          appendPalette(palette.name, palette.values, projectToSaveTo);
+        });
+      } else {
+        document.querySelector('.warning').innerText = 'There was an error retrieving saved palettes. Please reload the page to try again.';
+      }
+    });
+    hideProjectWarnings();
+    showPaletteForm();
+  } else {
+    document.querySelector('.warning').innerText = 'There was an error retrieving saved projects. Please reload the page to try again.';
+  }
+}
+
 document.querySelector('aside').addEventListener('click', handleControlsClick);
 
 document.querySelectorAll('.lock').forEach(lock => {
   lock.addEventListener('click', toggleLock);
 });
+
+window.onload = () => {
+  getExistingPalettes();
+}
