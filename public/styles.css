@@ -210,6 +210,7 @@ h3 {
 .projects {
   overflow: scroll;
   margin-bottom: 0;
+  max-height: 15vh;
   padding: 0;
 }
 
