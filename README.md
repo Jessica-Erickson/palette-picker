@@ -24,19 +24,21 @@ This setup assumes that you have PostgreSQL installed locally. Find your operati
 
 1. Clone down repo
 2. Change to root directory
-    `cd palette-picker`
+`cd palette-picker`
 3. Install dependencies
-    `npm install`
+`npm install`
 4. Create local databases
-    `psql`
-    `CREATE DATABASE palettepicker;`
-    `CREATE DATABASE palettepicker_testing;`
-    `\q`
+`psql`
+`CREATE DATABASE palettepicker;`
+`CREATE DATABASE palettepicker_testing;`
+`\q`
 5. Run migrations
-    `knex migrate:latest`
+`knex migrate:latest`
 6. Seed the database
-    `knex seed:run`
-7. `npm start` and visit `localhost:3000` in your browser
+`knex seed:run`
+7. Start the server
+`npm start`
+8. Visit `localhost:3000` in your browser
 
 ### Heroku Deployment Steps
 
