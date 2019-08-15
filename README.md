@@ -33,10 +33,10 @@ This setup assumes that you have PostgreSQL installed locally. Find your operati
 
 4. Create local databases
 
-`psql`
-`CREATE DATABASE palettepicker;`
-`CREATE DATABASE palettepicker_testing;`
-`\q`
+`psql
+CREATE DATABASE palettepicker;
+CREATE DATABASE palettepicker_testing;
+\q`
 
 5. Run migrations
 
