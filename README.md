@@ -20,9 +20,23 @@ https://j-erickson-palette-picker.herokuapp.com/
 
 ### Setup
 
+This setup assumes that you have PostgreSQL installed locally. Find your operating system on this page, then follow the instructions to download PostgreSQL to your machine: https://www.postgresql.org/download/
+
 1. Clone down repo
-2. `npm install` from root directory
-3. `npm start` and visit `localhost:3000` in your browser
+2. Change to root directory
+    `cd palette-picker`
+3. Install dependencies
+    `npm install`
+4. Create local databases
+    `psql`
+    `CREATE DATABASE palettepicker;`
+    `CREATE DATABASE palettepicker_testing;`
+    `\q`
+5. Run migrations
+    `knex migrate:latest`
+6. Seed the database
+    `knex seed:run`
+7. `npm start` and visit `localhost:3000` in your browser
 
 ### Heroku Deployment Steps
 
@@ -64,7 +78,7 @@ This deployment relies on you having a Heroku account and the associated CLI too
 
 Palette Picker uses Mocha and Chai for API testing
 
-`npm test` from the associated root directory
+Run command `npm test` from the root directory after following all steps from the setup section
 
 ### Next Steps
 
