@@ -24,6 +24,42 @@ https://j-erickson-palette-picker.herokuapp.com/
 2. `npm install` from root directory
 3. `npm start` and visit `localhost:3000` in your browser
 
+### Heroku Deployment Steps
+
+This deployment relies on you having a Heroku account and the associated CLI tools. To make a Heroku account, fill out and submit the form here: https://signup.heroku.com/. To download the CLI tools, follow the instructions on this page: https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up.
+
+1. Clone repo
+
+`git clone https://github.com/Jessica-Erickson/palette-picker`
+
+2. Change directory to repo
+
+`cd palette-picker`
+
+3. Create heroku app
+
+`heroku create`
+
+4. Provision a database
+
+`heroku addons:create heroku-postgresql:hobby-dev`
+
+5. Deploy the app
+
+`git push heroku master`
+
+6. Run the knex migration
+
+`heroku run knex migrate:latest`
+
+7. Seed the database (optional)
+
+`heroku run knex seed:run`
+
+8. Open in heroku
+
+`heroku open`
+
 ### Test Driven Development
 
 Palette Picker uses Mocha and Chai for API testing
